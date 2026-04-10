@@ -125,11 +125,11 @@
 # root n'a pas encore la clef ssh installée, mais l'utilsateur courant oui.
 
       - name: attends fin de cloud cloud-init
-        shell: ssh -o StrictHostKeyChecking=no {{user_name}}@{{inventory_hostname}} cloud-init status
+        shell: ssh -o StrictHostKeyChecking=no root@{{inventory_hostname}} cloud-init status
         register: status_result
         until: status_result is search("done")
-        retries: 20
-        delay: 5
+        retries: 200
+        delay: 10
 
 # supprime le driver CDROM pour etre definitif et plus propre.
       - name: Enleve le cdrom de clound init

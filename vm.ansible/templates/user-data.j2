@@ -23,6 +23,9 @@ chpasswd:
   expire: False
 
 runcmd:
+  - [ dnf, upgrade, -y ]
+  - [ sed, -i, 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/', /etc/ssh/sshd_config ]
+  - [ systemctl, restart, sshd ]
   - [ cp, /home/{{user_name}}/.ssh/authorized_keys, /root/.ssh/authorized_keys ]
 
 # package_update: true
